@@ -28,27 +28,41 @@ namespace TrackImage
         public void Normalize()
         {
             TrackPoint max = GetMax();
+            TrackPoint min = GetMin();
+
+
         }
 
         private TrackPoint GetMax()
         {
-            
-            TrackPoint max = TrackPoints[0];
+            double maxX = TrackPoints[0].Point.X;
+            double maxY = TrackPoints[0].Point.Y;
+            double maxElevation = TrackPoints[0].Elevation;
 
             foreach(TrackPoint tp in TrackPoints)
             {
-                max.Point.X = Math.Max(max.Point.X, tp.Point.X);
-
+                maxX = Math.Max(maxX, tp.Point.X);
+                maxX = Math.Max(maxY, tp.Point.X);
+                maxElevation = Math.Max(maxElevation, tp.Elevation);
             }
 
-            /*
-            [9:59:41 PM] Dave Carpenter: max = points[0]
-            [9:59:50 PM] Dave Carpenter: for (tp in points)
+            return new TrackPoint(maxX, maxY, maxElevation);
+        }
+
+        private TrackPoint GetMin()
+        {
+            double minX = TrackPoints[0].Point.X;
+            double minY = TrackPoints[0].Point.Y;
+            double minElevation = TrackPoints[0].Elevation;
+
+            foreach (TrackPoint tp in TrackPoints)
             {
-            [10:00:21 PM] Dave Carpenter: tp.x = max(max.x, tp.x)
-            [10:00:27 PM] Dave Carpenter: ... for y and ele ...
-            [10:00:28 PM] Dave Carpenter: }
-            */
+                minX = Math.Min(minX, tp.Point.X);
+                minY = Math.Min(minY, tp.Point.X);
+                minElevation = Math.Min(minElevation, tp.Elevation);
+            }
+
+            return new TrackPoint(minX, minY, minElevation);
         }
     }
 }
