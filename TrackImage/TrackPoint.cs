@@ -26,7 +26,30 @@ namespace TrackImage
             this.Hr = hr;
         }
 
-        public Point Point { get; set; }
+        public double X { get; set; }
+        public double Y { get; set; }
+
+        public static TrackPoint operator -(TrackPoint tp1, TrackPoint tp2)
+        {
+            return new TrackPoint(new Point(tp1.X - tp2.X, tp1.Y - tp2.Y), tp1.Elevation - tp2.Elevation);
+        }
+
+        public static TrackPoint operator /(TrackPoint tp1, TrackPoint tp2)
+        {
+            return new TrackPoint(new Point(tp1.X / tp2.X, tp1.Y / tp2.Y), tp1.Elevation / tp2.Elevation);
+        }
+
+        public Point Point {
+            get
+            {
+                return new Point(X, Y);
+            }
+            set
+            {
+                X = value.X;
+                Y = value.Y;
+            }
+        }
 
         public double Elevation { get; set; }
 

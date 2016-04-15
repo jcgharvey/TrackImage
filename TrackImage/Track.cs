@@ -30,7 +30,15 @@ namespace TrackImage
             TrackPoint max = GetMax();
             TrackPoint min = GetMin();
 
+            TrackPoint scaleFactor = max - min;
+            List <TrackPoint> normalizedPoints = new List<TrackPoint>();
 
+            foreach (TrackPoint trackPoint in TrackPoints)
+            {
+                normalizedPoints.Add((trackPoint - min)/scaleFactor);
+            }
+
+            TrackPoints = normalizedPoints;
         }
 
         private TrackPoint GetMax()
@@ -42,7 +50,7 @@ namespace TrackImage
             foreach(TrackPoint tp in TrackPoints)
             {
                 maxX = Math.Max(maxX, tp.Point.X);
-                maxX = Math.Max(maxY, tp.Point.X);
+                maxY = Math.Max(maxY, tp.Point.Y);
                 maxElevation = Math.Max(maxElevation, tp.Elevation);
             }
 
@@ -58,7 +66,7 @@ namespace TrackImage
             foreach (TrackPoint tp in TrackPoints)
             {
                 minX = Math.Min(minX, tp.Point.X);
-                minY = Math.Min(minY, tp.Point.X);
+                minY = Math.Min(minY, tp.Point.Y);
                 minElevation = Math.Min(minElevation, tp.Elevation);
             }
 
