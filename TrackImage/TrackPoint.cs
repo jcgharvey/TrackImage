@@ -9,6 +9,12 @@ namespace TrackImage
 {
     class TrackPoint
     {
+        public TrackPoint(double x, double y, double elevation)
+        {
+            this.Point = new Point(x, y);
+            this.Elevation = elevation;
+        }
+        
         public TrackPoint(Point p, double elevation)
         {
             this.Point = p;
